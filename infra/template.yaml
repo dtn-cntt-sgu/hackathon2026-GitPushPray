@@ -1,0 +1,230 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SafeChat AI Gateway - stack staging/production (vùng ap-northeast-1)
+
+Parameters:
+  Environment:
+    Type: String
+    AllowedValues: [staging, prod]
+    Default: staging
+  AiProvider:
+    Type: String
+    AllowedValues: [groq, none]
+    Default: none
+    Description: none là kill switch; đặt groq khi đã có Groq secret.
+  GroqModelSmall:
+    Type: String
+    Default: openai/gpt-oss-120b
+  GroqModelLarge:
+    Type: String
+    Default: openai/gpt-oss-120b
+  GroqReasoningEffort:
+    Type: String
+    AllowedValues: ['', low, medium, high]
+    Default: ''
+    Description: Mức suy luận của model gpt-oss. Để trống thì dùng mặc định của Groq.
+  GroqSecretArn:
+    Type: String
+    Default: ''
+    Description: ARN secret chứa Groq API key (nhập thủ công, không commit).
+  TokenSecretArn:
+    Type: String
+    Description: ARN secret ký token thiết bị (bắt buộc).
+  TokenSecretPreviousArn:
+    Type: String
+    Default: ''
+    Description: ARN secret cũ trong thời gian xoay vòng.
+  AdminTokenSecretArn:
+    Type: String
+    Default: ''
+    Description: ARN token admin cho /v1/metrics/summary.
+  AllowedOrigins:
+    Type: String
+    Default: ''
+    Description: Danh sách origin cách nhau dấu phẩy.
+  PromptVersion:
+    Type: String
+    Default: v1
+  DeviceRpm:
+    Type: String
+    Default: '4'
+  DeviceDailyCalls:
+    Type: String
+    Default: '50'
+  DeviceIssueRpm:
+    Type: String
+    Default: '10'
+  GlobalRpm:
+    Type: String
+    Default: '20'
+  GlobalDailyCalls:
+    Type: String
+    Default: '500'
+  GlobalDailyTokens:
+    Type: String
+    Default: '2000000'
+  MaxBodyBytes:
+    Type: String
+    Default: '262144'
+  TokenTtlHours:
+    Type: String
+    Default: '24'
+  ReservedConcurrency:
+    Type: Number
+    Default: 5
+    MinValue: 1
+    MaxValue: 100
+    Description: Giới hạn số Lambda chạy đồng thời để chặn chi phí.
+  ApiThrottleRateLimit:
+    Type: Number
+    Default: 20
+    Description: Số request/giây mặc định của HTTP API.
+  ApiThrottleBurstLimit:
+    Type: Number
+    Default: 40
+    Description: Burst request mặc định của HTTP API.
+  MonthlyBudgetUsd:
+    Type: Number
+    Default: 5
+    MinValue: 1
+    Description: Trần cảnh báo chi phí hằng tháng (USD).
+  BudgetAlertEmail:
+    Type: String
+    Default: ''
+    Description: Email nhận cảnh báo AWS Budgets; để trống thì không tạo budget.
+
+Conditions:
+  HasBudgetEmail: !Not [!Equals [!Ref BudgetAlertEmail, '']]
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 30
+    MemorySize: 512
+
+Resources:
+  GatewayLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/safechat-gateway-${Environment}'
+      RetentionInDays: 7
+
+  GatewayTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'safechat-${Environment}'
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  GatewayHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: !Ref ApiThrottleBurstLimit
+        ThrottlingRateLimit: !Ref ApiThrottleRateLimit
+
+  GatewayFunction:
+    Type: AWS::Serverless::Function
+    DependsOn: GatewayLogGroup
+    Properties:
+      FunctionName: !Sub 'safechat-gateway-${Environment}'
+      Handler: index.handler
+      CodeUri: gateway-dist
+      ReservedConcurrentExecutions: !Ref ReservedConcurrency
+      Description: Gateway phân tích delta, không lưu nội dung chat
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+                - dynamodb:DeleteItem
+                - dynamodb:Query
+              Resource: !GetAtt GatewayTable.Arn
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:safechat/*'
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+          TABLE_NAME: !Ref GatewayTable
+          AI_PROVIDER: !Ref AiProvider
+          GROQ_SECRET_ARN: !Ref GroqSecretArn
+          TOKEN_SECRET_ARN: !Ref TokenSecretArn
+          TOKEN_SECRET_PREVIOUS_ARN: !Ref TokenSecretPreviousArn
+          ADMIN_TOKEN_SECRET_ARN: !Ref AdminTokenSecretArn
+          GROQ_MODEL_SMALL: !Ref GroqModelSmall
+          GROQ_MODEL_LARGE: !Ref GroqModelLarge
+          GROQ_REASONING_EFFORT: !Ref GroqReasoningEffort
+          AI_TIMEOUT_SMALL_MS: '8000'
+          AI_TIMEOUT_LARGE_MS: '10000'
+          AI_CONTEXT_MESSAGES: '8'
+          AI_MAX_NEW_MESSAGES: '50'
+          AI_MAX_INPUT_CHARS: '20000'
+          AI_MAX_INPUT_TOKENS: '7500'
+          AI_MAX_SIGNALS: '8'
+          AI_ESCALATION: 'on'
+          DEVICE_RPM: !Ref DeviceRpm
+          DEVICE_DAILY_CALLS: !Ref DeviceDailyCalls
+          DEVICE_ISSUE_RPM: !Ref DeviceIssueRpm
+          GLOBAL_RPM: !Ref GlobalRpm
+          GLOBAL_DAILY_CALLS: !Ref GlobalDailyCalls
+          GLOBAL_DAILY_TOKENS: !Ref GlobalDailyTokens
+          MAX_BODY_BYTES: !Ref MaxBodyBytes
+          TOKEN_TTL_HOURS: !Ref TokenTtlHours
+          ALLOWED_ORIGINS: !Ref AllowedOrigins
+          PROMPT_VERSION: !Ref PromptVersion
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref GatewayHttpApi
+            PayloadFormatVersion: '2.0'
+
+  MonthlyBudget:
+    Type: AWS::Budgets::Budget
+    Condition: HasBudgetEmail
+    Properties:
+      Budget:
+        BudgetName: !Sub 'safechat-${Environment}-monthly'
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit:
+          Amount: !Ref MonthlyBudgetUsd
+          Unit: USD
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 80
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref BudgetAlertEmail
+
+Outputs:
+  GatewayUrl:
+    Description: URL gateway staging/prod (stage $default)
+    # AWS::Serverless::HttpApi chỉ trả Ref = API id, không có GetAtt ApiEndpoint.
+    Value: !Sub 'https://${GatewayHttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}'
+  GatewayFunctionName:
+    Description: Tên Lambda gateway
+    Value: !Ref GatewayFunction
+  GatewayTableName:
+    Description: Bảng DynamoDB chỉ chứa bộ đếm
+    Value: !Ref GatewayTable

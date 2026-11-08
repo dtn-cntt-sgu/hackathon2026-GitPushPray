@@ -1,0 +1,384 @@
+{
+  "id": "EXP-008",
+  "date": "2026-11-07",
+  "title": "Đợt 1: phủ định liệt kê, chiều tiền, giấu gia đình, ứng tiền",
+  "hypothesis": "Các lỗi đọc được từ bộ gợi ý nội bộ là lỗi chung của luật: không hiểu phủ định liệt kê, chiều tiền, lời bảo giấu người thân, ứng tiền trước. Sửa sẽ giảm báo nhầm mà không làm tăng bỏ sót trên tune và SMS.",
+  "method": "rules",
+  "rulesCommit": "ca76683+dirty",
+  "dataset": "set:v2",
+  "splitSha256": "a2ac7dfce966d8d5ffd523f0cff96fc86a34237b1d2d7a774e0ed91efd67cb33",
+  "checkViewed": false,
+  "tune": {
+    "n": 65,
+    "accuracy": 0.6615384615384615,
+    "macroF1": 0.49856321839080453,
+    "dangerMiss": 0.03225806451612903,
+    "dangerMissCount": "1/31",
+    "criticalRecall": 0.5714285714285714,
+    "falseAlarm": 0.21875,
+    "falseAlarmHigh": 0.09375,
+    "falseAlarmHighCount": "3/32",
+    "confusion": [
+      [
+        24,
+        4,
+        3,
+        0
+      ],
+      [
+        3,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        7,
+        3
+      ],
+      [
+        0,
+        1,
+        8,
+        12
+      ]
+    ]
+  },
+  "check": null,
+  "sms": {
+    "benignHigh": 0.0364741641337386,
+    "benignAny": 0.04711246200607903,
+    "scamHigh": 0.3305439330543933,
+    "scamAny": 0.5983263598326359,
+    "n": 897
+  },
+  "paired": null,
+  "tunePredictions": [
+    {
+      "id": "V2_S02",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S04",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S05",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S06",
+      "gold": "attention",
+      "pred": "low"
+    },
+    {
+      "id": "V2_S08",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S10",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S12",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S13",
+      "gold": "attention",
+      "pred": "low"
+    },
+    {
+      "id": "V2_S16",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S19",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S20",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S23",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S26",
+      "gold": "high",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S27",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S29",
+      "gold": "high",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S30",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S31",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S32",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S33",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S35",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S36",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S37",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S38",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S42",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S43",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S44",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S45",
+      "gold": "attention",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C01",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C03",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C04",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C06",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C07",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C08",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C10",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C11",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_C12",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "TT_CTV_005",
+      "gold": "high",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_CTV_006",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_NHI_001",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_CTV_007",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "TT_DIXA_001",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "TT_DIXA_002",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_CTV_008",
+      "gold": "critical",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_01",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_03",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_05",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_07",
+      "gold": "low",
+      "pred": "high"
+    },
+    {
+      "id": "V2_BT_08",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_09",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_10",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_11",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_13",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_15",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_17",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_20",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_25",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_26",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_27",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_28",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_30",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_31",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_32",
+      "gold": "low",
+      "pred": "high"
+    },
+    {
+      "id": "V2_BT_33",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_35",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_36",
+      "gold": "low",
+      "pred": "high"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "EXP-018",
+  "date": "2026-11-07",
+  "title": "Gợi ý Hỏi thử theo diễn biến và bước tiếp theo của AI",
+  "hypothesis": "Câu hỏi nên đổi theo diễn biến, và AI có thể gợi ý câu tiếp theo bám ngữ cảnh mà không tạo đường cho tin cài lệnh.",
+  "method": "rules+ai",
+  "rulesCommit": "xem-git-log",
+  "dataset": "kịch bản tự viết trong research/next-step-trial.ts",
+  "checkViewed": false,
+  "check": null,
+  "trial": {
+    "v1": {
+      "openai/gpt-oss-20b": {
+        "ran": "8/8",
+        "wrongAddress": "7/7 câu có nội dung",
+        "assessmentRight": "evasive 0/1, contradictory 0/1",
+        "injectionCopied": "0/2"
+      },
+      "openai/gpt-oss-120b": {
+        "ran": "3/8",
+        "stoppedBy": "hạn mức ngày"
+      }
+    },
+    "v2": {
+      "openai/gpt-oss-20b": {
+        "ran": "6/11",
+        "stoppedBy": "hạn mức ngày",
+        "inputTokens": "2001-2244",
+        "outputTokens": "141-637"
+      }
+    }
+  }
+}

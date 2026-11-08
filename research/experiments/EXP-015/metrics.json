@@ -1,0 +1,22 @@
+{
+  "id": "EXP-015",
+  "date": "2026-11-07",
+  "title": "Sửa luật theo bộ phát triển của nhóm, vòng 1",
+  "hypothesis": "Sửa đe dọa, mã độc không có chữ apk, lừa tình kèm đầu tư mà không làm tụt tune, SMS và hội thoại dài.",
+  "method": "rules",
+  "rulesCommit": "xem-git-log",
+  "dataset": "set:v2/tune + bộ phát triển ngoài repo",
+  "checkViewed": false,
+  "tune": { "dangerMiss": 0.03225806451612903, "dangerMissCount": "1/31", "falseAlarmHigh": 0.09375, "falseAlarmHighCount": "3/32", "accuracyCount": "43/65" },
+  "check": null,
+  "sms": { "benignHigh": 0.0364741641, "scamHigh": 0.3305439331 },
+  "devFilesAlreadyRead": {
+    "threat": { "before": { "accuracy": "8/20", "dangerUnderHigh": "8/10", "benignHigh": "1/10" }, "after": { "accuracy": "13/20", "dangerUnderHigh": "2/10", "benignHigh": "0/10" } },
+    "advanced": { "before": { "accuracy": "9/20", "dangerUnderHigh": "5/10", "benignHigh": "2/10" }, "after": { "accuracy": "16/20", "dangerUnderHigh": "0/10", "benignHigh": "1/10" } }
+  },
+  "longConversations": {
+    "end50": { "dangerMiss": "1/31", "falseAlarmHigh": "4/32" },
+    "start50": { "dangerMiss": "1/31", "falseAlarmHigh": "2/32" }
+  },
+  "scenarios": "135/135"
+}

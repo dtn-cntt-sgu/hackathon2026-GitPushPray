@@ -1,0 +1,26 @@
+{
+  "id": "EXP-010",
+  "date": "2026-11-07",
+  "title": "Chạy thử Groq 2 ca: model dùng được, token, reasoning_effort",
+  "hypothesis": "Mức reasoning_effort low giảm token ra và giảm lỗi JSON so với medium. Chỉ là chạy thử, không dùng để chọn model.",
+  "method": "ai, groq, 2 ca tune, trần 2048 token, prompt bench-v2",
+  "rulesCommit": "309ab2d",
+  "dataset": "set:v2/tune (2 ca)",
+  "checkViewed": false,
+  "tune": null,
+  "check": null,
+  "sms": null,
+  "limits": { "requestsPerDay": 1000, "tokensPerMinute": 8000, "tokensPerDay": null },
+  "unavailableModels": ["llama-3.1-8b-instant", "llama-3.3-70b-versatile"],
+  "trial": [
+    { "model": "openai/gpt-oss-20b", "effort": "medium", "outTokens": [2048, 1786], "reasoningTokens": [1718, 1172], "latencyMs": [3292, 3864], "missingLevel": 1, "hitTokenCap": 1, "rejectedSignals": 0 },
+    { "model": "openai/gpt-oss-120b", "effort": "medium", "outTokens": [1336, 1976], "reasoningTokens": [756, 1310], "latencyMs": [4104, 5434], "missingLevel": 0, "hitTokenCap": 0, "rejectedSignals": 0 },
+    { "model": "openai/gpt-oss-20b", "effort": "low", "outTokens": [487, 729], "reasoningTokens": [53, 78], "latencyMs": [1185, 1593], "missingLevel": 0, "hitTokenCap": 0, "rejectedSignals": 3 },
+    { "model": "openai/gpt-oss-120b", "effort": "low", "outTokens": [747, 506], "reasoningTokens": [70, 88], "latencyMs": [2409, 1686], "missingLevel": 0, "hitTokenCap": 0, "rejectedSignals": 0 }
+  ],
+  "trialNoEffort": [
+    { "model": "openai/gpt-oss-20b", "outTokens": [2015], "groqJsonRejected": 1 },
+    { "model": "openai/gpt-oss-120b", "outTokens": [2010, 1657], "groqJsonRejected": 0 }
+  ],
+  "promptTokens": [1678, 1803]
+}

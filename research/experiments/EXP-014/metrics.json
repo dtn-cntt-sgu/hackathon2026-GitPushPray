@@ -1,0 +1,17 @@
+{
+  "id": "EXP-014",
+  "date": "2026-11-07",
+  "title": "Thử bản nháp luật đe dọa trên bộ câu do thành viên khác viết",
+  "hypothesis": "Bản nháp luật đạt 22/22 câu tự viết sẽ giữ được kết quả trên câu do người khác viết.",
+  "method": "rules + 2 luật nháp lúc chạy, 20 câu ngoài repo",
+  "rulesCommit": "39c9962",
+  "dataset": "nguoiviet_de_doa (20 câu, không lên repo)",
+  "checkViewed": false,
+  "tune": null,
+  "check": null,
+  "sms": null,
+  "draftRuleSha256Prefix": "04f20ac8471b",
+  "current": { "threatHigh": "2/10", "criticalHit": "0/6", "benignHigh": "1/10", "accuracy": "8/20" },
+  "withDraftRules": { "threatHigh": "2/10", "criticalHit": "1/6", "benignHigh": "2/10", "accuracy": "8/20" },
+  "decision": "Không thêm 2 luật"
+}

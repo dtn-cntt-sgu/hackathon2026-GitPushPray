@@ -1,0 +1,458 @@
+{
+  "id": "EXP-032",
+  "date": "2026-11-07",
+  "title": "Vai trò AI mới: nhận định ngữ cảnh, AI cùng luật",
+  "hypothesis": "Cho AI nhận định ngữ cảnh, không bỏ tín hiệu trùng, AI cùng luật lên Nghiêm trọng khi nạn nhân sắp làm theo giúp bắt thêm ca nguy hiểm mà không tăng báo nhầm",
+  "method": "gateway, groq openai/gpt-oss-120b (reasoning low), prompt bench-v7",
+  "rulesCommit": "f4f412e+dirty",
+  "rulesCommitAtRun": "f4f412e+dirty",
+  "dataset": "set:v2/tune",
+  "runId": "ai-insight-120b",
+  "status": "finished",
+  "promptSha256": "4ad9a0937c97f95efb6061d8a5d5c5face26a587855985d0ea90fd000e1f8d6a",
+  "rawFileSha256": "1a4fc6c8eb5eed080ce6e036cccbceb75a3c2ecabfb4b97f17b26cdc36779932",
+  "checkViewed": false,
+  "tune": {
+    "n": 65,
+    "accuracy": 0.6923076923076923,
+    "macroF1": 0.538352447897398,
+    "dangerMiss": 0.03225806451612903,
+    "dangerMissCount": "1/31",
+    "criticalRecall": 0.8076923076923077,
+    "falseAlarm": 0.34375,
+    "falseAlarmHigh": 0.21875,
+    "falseAlarmHighCount": "7/32",
+    "confusion": [
+      [
+        20,
+        4,
+        5,
+        2
+      ],
+      [
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        2
+      ],
+      [
+        0,
+        1,
+        4,
+        21
+      ]
+    ]
+  },
+  "check": null,
+  "sms": null,
+  "byConfig": {
+    "rules": {
+      "n": 65,
+      "accuracy": 0.7384615384615385,
+      "macroF1": 0.5139477401129943,
+      "dangerMiss": 0.03225806451612903,
+      "dangerMissCount": "1/31",
+      "criticalRecall": 0.7692307692307693,
+      "falseAlarm": 0.1875,
+      "falseAlarmHigh": 0.09375,
+      "falseAlarmHighCount": "3/32",
+      "confusion": [
+        [
+          25,
+          3,
+          3,
+          0
+        ],
+        [
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          1,
+          5,
+          20
+        ]
+      ]
+    },
+    "gateway": {
+      "n": 65,
+      "accuracy": 0.6923076923076923,
+      "macroF1": 0.538352447897398,
+      "dangerMiss": 0.03225806451612903,
+      "dangerMissCount": "1/31",
+      "criticalRecall": 0.8076923076923077,
+      "falseAlarm": 0.34375,
+      "falseAlarmHigh": 0.21875,
+      "falseAlarmHighCount": "7/32",
+      "confusion": [
+        [
+          20,
+          4,
+          5,
+          2
+        ],
+        [
+          2,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          1,
+          4,
+          21
+        ]
+      ]
+    }
+  },
+  "calls": {},
+  "tunePredictions": [
+    {
+      "id": "V2_S02",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S04",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S05",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S06",
+      "gold": "attention",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_S08",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S10",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S12",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S13",
+      "gold": "attention",
+      "pred": "low"
+    },
+    {
+      "id": "V2_S16",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S19",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S20",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S23",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S26",
+      "gold": "high",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S27",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S29",
+      "gold": "high",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S30",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S31",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S32",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S33",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S35",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S36",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S37",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S38",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S42",
+      "gold": "high",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S43",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "V2_S44",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_S45",
+      "gold": "attention",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C01",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_C03",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C04",
+      "gold": "low",
+      "pred": "high"
+    },
+    {
+      "id": "V2_C06",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C07",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C08",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C10",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C11",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_C12",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "TT_CTV_005",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_CTV_006",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "TT_NHI_001",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_CTV_007",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_DIXA_001",
+      "gold": "critical",
+      "pred": "high"
+    },
+    {
+      "id": "TT_DIXA_002",
+      "gold": "critical",
+      "pred": "critical"
+    },
+    {
+      "id": "TT_CTV_008",
+      "gold": "critical",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_01",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_03",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_05",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_07",
+      "gold": "low",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_BT_08",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_09",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_10",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_11",
+      "gold": "low",
+      "pred": "critical"
+    },
+    {
+      "id": "V2_BT_13",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_15",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_17",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_20",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_25",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_26",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_27",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_28",
+      "gold": "low",
+      "pred": "attention"
+    },
+    {
+      "id": "V2_BT_30",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_31",
+      "gold": "low",
+      "pred": "high"
+    },
+    {
+      "id": "V2_BT_32",
+      "gold": "low",
+      "pred": "high"
+    },
+    {
+      "id": "V2_BT_33",
+      "gold": "low",
+      "pred": "high"
+    },
+    {
+      "id": "V2_BT_35",
+      "gold": "low",
+      "pred": "low"
+    },
+    {
+      "id": "V2_BT_36",
+      "gold": "low",
+      "pred": "high"
+    }
+  ]
+}

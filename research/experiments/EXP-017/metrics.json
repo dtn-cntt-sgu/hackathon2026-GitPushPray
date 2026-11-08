@@ -1,0 +1,14 @@
+{
+  "id": "EXP-017",
+  "date": "2026-11-07",
+  "title": "Nhận ra việc like, theo dõi được trả tiền theo lượt",
+  "hypothesis": "Tin mô tả nhấn thích, theo dõi fanpage kèm tiền cho mỗi lượt nên ở mức Cần chú ý, không làm tụt các tập kiểm tra.",
+  "method": "rules",
+  "rulesCommit": "xem-git-log",
+  "dataset": "set:v2/tune + một kịch bản ngoài repo",
+  "checkViewed": false,
+  "tune": { "dangerMiss": 0.03225806451612903, "dangerMissCount": "1/31", "falseAlarmHigh": 0.09375, "falseAlarmHighCount": "3/32", "accuracyCount": "43/65" },
+  "check": null,
+  "sms": { "benignHigh": 0.0364741641, "scamHigh": 0.3305439331 },
+  "scenarios": "147/147"
+}

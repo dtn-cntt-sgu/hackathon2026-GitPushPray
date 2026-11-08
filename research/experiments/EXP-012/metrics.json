@@ -1,0 +1,25 @@
+{
+  "id": "EXP-012",
+  "date": "2026-11-07",
+  "title": "Quét ban đầu 50 tin, đánh giá mỗi 2 tin, prompt gọn: kiểm tra offline và 4 lượt thật",
+  "hypothesis": "Rút gọn prompt và cách ghi tin giảm token mà vẫn trả JSON đúng. Đọc lịch sử dài không làm tăng báo nhầm của luật.",
+  "method": "đếm offline trên tune, 4 lượt thật gpt-oss-20b mức low, prompt bench-v5",
+  "rulesCommit": "9840674",
+  "dataset": "set:v2/tune",
+  "checkViewed": false,
+  "tune": null,
+  "check": null,
+  "sms": null,
+  "aiCallsOnTune": { "cases": 65, "batch5Idle60OtherOnly": 116, "batch2Idle20AnyMessage": 354 },
+  "rulesOnPaddedTune": {
+    "original": { "accuracy": "43/65", "dangerMiss": "1/31", "falseAlarmHigh": "3/32" },
+    "pad30": { "accuracy": "36/65", "dangerMiss": "1/31", "falseAlarmHigh": "7/32" },
+    "pad50": { "accuracy": "34/65", "dangerMiss": "1/31", "falseAlarmHigh": "9/32" }
+  },
+  "systemPromptChars": { "beforeApprox": "8500-9000", "small": 4285, "large": 4751 },
+  "realCalls": {
+    "normal": [{ "inTokens": 2049, "outTokens": 702, "rejected": 0 }, { "inTokens": 2155, "outTokens": 503, "rejected": 0 }],
+    "pad50": [{ "inTokens": 2956, "outTokens": 526, "rejected": 1 }, { "inTokens": 3046, "outTokens": 746, "rejected": 2 }],
+    "previousAverage": { "inTokens": 3319, "outTokens": 510 }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "safechat-ai",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "description": "SafeChat AI: hỗ trợ nhận biết dấu hiệu lừa đảo trong hội thoại",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "services/*"
+  ],
+  "scripts": {
+    "check": "tsc --noEmit && vitest run --no-file-parallelism && tsx scripts/eval.ts --check && node apps/extension/scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --no-file-parallelism",
+    "test:watch": "vitest",
+    "eval": "tsx scripts/eval.ts",
+    "build:extension": "node apps/extension/scripts/build.mjs",
+    "build:gateway": "node services/gateway/build.mjs",
+    "dev:gateway": "tsx services/gateway/src/index.ts",
+    "dev:extension": "vite apps/extension --port 5178",
+    "icons": "node apps/extension/scripts/icons.mjs",
+    "bench:import": "tsx research/import.ts",
+    "bench:models": "tsx research/models.ts",
+    "bench:rules": "tsx research/run.ts --configs rules --split all",
+    "bench:run": "tsx research/run.ts",
+    "bench:report": "tsx research/report.ts",
+    "bench:archive": "tsx research/archive.ts",
+    "bench:external": "tsx research/external.ts",
+    "bench:report-ext": "tsx research/report-ext.ts",
+    "bench:analyze-rules": "tsx research/rule-analysis.ts",
+    "bench:notebook": "python research/notebooks/run_notebook.py",
+    "bench:experiment": "tsx research/experiment.ts",
+    "bench:experiment-ai": "tsx research/experiment-ai.ts",
+    "bench:label-audit": "tsx research/label-audit.ts",
+    "bench:pair-gap": "tsx research/pair-gap.ts",
+    "bench:ai-calls": "tsx research/ai-call-count.ts",
+    "bench:long-eval": "tsx research/long-eval.ts",
+    "bench:sentences": "tsx research/sentence-eval.ts",
+    "bench:next-step": "tsx research/next-step-trial.ts",
+    "bench:rules-dev": "tsx research/rules-dev.ts"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.5",
+    "vitest": "^4.1.12"
+  }
+}

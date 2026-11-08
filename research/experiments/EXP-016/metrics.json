@@ -1,0 +1,16 @@
+{
+  "id": "EXP-016",
+  "date": "2026-11-07",
+  "title": "Sửa luật vòng 2, giả danh cán bộ hành chính",
+  "hypothesis": "Thêm luật giả cán bộ dọa khóa định danh, loại trừ trường hợp mời ra trụ sở, không làm tụt các tập kiểm tra.",
+  "method": "rules",
+  "rulesCommit": "xem-git-log",
+  "dataset": "set:v2/tune + bộ phát triển ngoài repo",
+  "checkViewed": false,
+  "tune": { "dangerMiss": 0.03225806451612903, "dangerMissCount": "1/31", "falseAlarmHigh": 0.09375, "falseAlarmHighCount": "3/32", "accuracyCount": "43/65" },
+  "check": null,
+  "sms": { "benignHigh": 0.0364741641, "scamHigh": 0.3305439331 },
+  "devFilesAlreadyRead": { "multiturn": { "before": "3/6", "after": "6/6" } },
+  "longConversations": { "end50": { "dangerMiss": "1/31", "falseAlarmHigh": "4/32" }, "start50": { "dangerMiss": "1/31", "falseAlarmHigh": "2/32" } },
+  "scenarios": "142/142"
+}

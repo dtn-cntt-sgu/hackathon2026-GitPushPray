@@ -1,0 +1,195 @@
+name: CD - Deploy Gateway
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AI_PROVIDER: ${{ vars.AI_PROVIDER || 'none' }}
+  GROQ_MODEL_SMALL: ${{ vars.GROQ_MODEL_SMALL || 'openai/gpt-oss-120b' }}
+  GROQ_MODEL_LARGE: ${{ vars.GROQ_MODEL_LARGE || 'openai/gpt-oss-120b' }}
+  RESERVED_CONCURRENCY: ${{ vars.RESERVED_CONCURRENCY || '5' }}
+  API_THROTTLE_RATE_LIMIT: ${{ vars.API_THROTTLE_RATE_LIMIT || '20' }}
+  API_THROTTLE_BURST_LIMIT: ${{ vars.API_THROTTLE_BURST_LIMIT || '40' }}
+  MONTHLY_BUDGET_USD: ${{ vars.MONTHLY_BUDGET_USD || '5' }}
+  BUDGET_ALERT_EMAIL: ${{ vars.BUDGET_ALERT_EMAIL }}
+
+jobs:
+  deploy-staging:
+    # Opt-in: giai đoạn local-first không deploy AWS. Đặt vars.DEPLOY_AWS=true khi bật.
+    if: vars.DEPLOY_AWS == 'true' && (github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    environment: staging
+    env:
+      GROQ_SECRET_ARN: ${{ secrets.GROQ_SECRET_ARN }}
+      TOKEN_SECRET_ARN: ${{ secrets.TOKEN_SECRET_ARN }}
+      TOKEN_SECRET_PREVIOUS_ARN: ${{ secrets.TOKEN_SECRET_PREVIOUS_ARN }}
+      ADMIN_TOKEN_SECRET_ARN: ${{ secrets.ADMIN_TOKEN_SECRET_ARN }}
+      ALLOWED_ORIGINS: ${{ vars.ALLOWED_ORIGINS }}
+      PROMPT_VERSION: ${{ vars.PROMPT_VERSION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build bundle gateway
+        run: npm run build:gateway
+
+      - name: Copy bundle vào SAM CodeUri
+        run: |
+          mkdir -p infra/gateway-dist
+          cp services/gateway/dist/index.js services/gateway/dist/package.json infra/gateway-dist/
+
+      - name: Cấu hình AWS qua OIDC (không access key dài hạn)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Cài AWS SAM CLI
+        run: |
+          pip install "aws-sam-cli==1.171.0"
+
+      - name: Build SAM (staging)
+        working-directory: infra
+        run: sam build
+
+      - name: Deploy SAM staging stack
+        working-directory: infra
+        run: |
+          sam deploy \
+            --stack-name safechat-staging \
+            --template-file .aws-sam/build/template.yaml \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides \
+              Environment=staging \
+              AiProvider="$AI_PROVIDER" \
+              GroqModelSmall="$GROQ_MODEL_SMALL" \
+              GroqModelLarge="$GROQ_MODEL_LARGE" \
+              GroqSecretArn="$GROQ_SECRET_ARN" \
+              TokenSecretArn="$TOKEN_SECRET_ARN" \
+              TokenSecretPreviousArn="$TOKEN_SECRET_PREVIOUS_ARN" \
+              AdminTokenSecretArn="$ADMIN_TOKEN_SECRET_ARN" \
+              AllowedOrigins="$ALLOWED_ORIGINS" \
+              PromptVersion="${PROMPT_VERSION:-v1}" \
+              ReservedConcurrency="$RESERVED_CONCURRENCY" \
+              ApiThrottleRateLimit="$API_THROTTLE_RATE_LIMIT" \
+              ApiThrottleBurstLimit="$API_THROTTLE_BURST_LIMIT" \
+              MonthlyBudgetUsd="$MONTHLY_BUDGET_USD" \
+              BudgetAlertEmail="$BUDGET_ALERT_EMAIL" \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset \
+            --resolve-s3
+
+      - name: Lấy URL staging
+        id: url
+        working-directory: infra
+        run: |
+          URL=$(aws cloudformation describe-stacks --stack-name safechat-staging \
+            --query "Stacks[0].Outputs[?OutputKey=='GatewayUrl'].OutputValue" --output text)
+          echo "gateway_url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Smoke test GET /healthz và /readyz
+        run: |
+          for PATH in healthz readyz; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.url.outputs.gateway_url }}/$PATH")
+            echo "$PATH: HTTP $STATUS"
+            test "$STATUS" = "200"
+          done
+
+  deploy-production:
+    if: vars.DEPLOY_AWS == 'true' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      GROQ_SECRET_ARN: ${{ secrets.GROQ_SECRET_ARN }}
+      TOKEN_SECRET_ARN: ${{ secrets.TOKEN_SECRET_ARN }}
+      TOKEN_SECRET_PREVIOUS_ARN: ${{ secrets.TOKEN_SECRET_PREVIOUS_ARN }}
+      ADMIN_TOKEN_SECRET_ARN: ${{ secrets.ADMIN_TOKEN_SECRET_ARN }}
+      ALLOWED_ORIGINS: ${{ vars.ALLOWED_ORIGINS }}
+      PROMPT_VERSION: ${{ vars.PROMPT_VERSION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build bundle gateway
+        run: npm run build:gateway
+
+      - name: Copy bundle vào SAM CodeUri
+        run: |
+          mkdir -p infra/gateway-dist
+          cp services/gateway/dist/index.js services/gateway/dist/package.json infra/gateway-dist/
+
+      - name: Cấu hình AWS qua OIDC (không access key dài hạn)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Cài AWS SAM CLI
+        run: |
+          pip install "aws-sam-cli==1.171.0"
+
+      - name: Build SAM (production)
+        working-directory: infra
+        run: sam build
+
+      - name: Deploy SAM production stack
+        working-directory: infra
+        run: |
+          sam deploy \
+            --stack-name safechat-prod \
+            --template-file .aws-sam/build/template.yaml \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides \
+              Environment=prod \
+              AiProvider="$AI_PROVIDER" \
+              GroqModelSmall="$GROQ_MODEL_SMALL" \
+              GroqModelLarge="$GROQ_MODEL_LARGE" \
+              GroqSecretArn="$GROQ_SECRET_ARN" \
+              TokenSecretArn="$TOKEN_SECRET_ARN" \
+              TokenSecretPreviousArn="$TOKEN_SECRET_PREVIOUS_ARN" \
+              AdminTokenSecretArn="$ADMIN_TOKEN_SECRET_ARN" \
+              AllowedOrigins="$ALLOWED_ORIGINS" \
+              PromptVersion="${PROMPT_VERSION:-v1}" \
+              ReservedConcurrency="$RESERVED_CONCURRENCY" \
+              ApiThrottleRateLimit="$API_THROTTLE_RATE_LIMIT" \
+              ApiThrottleBurstLimit="$API_THROTTLE_BURST_LIMIT" \
+              MonthlyBudgetUsd="$MONTHLY_BUDGET_USD" \
+              BudgetAlertEmail="$BUDGET_ALERT_EMAIL" \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset \
+            --resolve-s3
+
+      - name: Lấy URL production
+        id: url
+        working-directory: infra
+        run: |
+          URL=$(aws cloudformation describe-stacks --stack-name safechat-prod \
+            --query "Stacks[0].Outputs[?OutputKey=='GatewayUrl'].OutputValue" --output text)
+          echo "gateway_url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Smoke test GET /healthz và /readyz
+        run: |
+          for PATH in healthz readyz; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.url.outputs.gateway_url }}/$PATH")
+            echo "$PATH: HTTP $STATUS"
+            test "$STATUS" = "200"
+          done

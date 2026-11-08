@@ -1,0 +1,21 @@
+{
+  "id": "EXP-009",
+  "date": "2026-11-07",
+  "title": "Gom đủ 5 tin mới gọi AI một lần, gọi nốt tin lẻ khi dừng 60 giây",
+  "hypothesis": "Bỏ gọi sớm khi mức tăng hoặc có tín hiệu mới sẽ giảm lượt gọi AI, luật vẫn cảnh báo sau từng tin. Gọi nốt khi hội thoại dừng để AI đọc hết tin lẻ. Chưa đo chất lượng vì dùng AI giả.",
+  "method": "đếm lượt gọi bằng AI giả, không gọi mạng",
+  "rulesCommit": "a7abe92+dirty",
+  "dataset": "set:v2/tune",
+  "checkViewed": false,
+  "tune": null,
+  "check": null,
+  "sms": null,
+  "calls": {
+    "before": { "batchSize": 5, "earlyTriggers": true, "aiCalls": 96, "casesWithNoCall": 1, "leftoverMessages": 103 },
+    "after": { "batchSize": 5, "earlyTriggers": false, "aiCalls": 61, "casesWithNoCall": 4, "leftoverMessages": 76, "dangerCases": 31, "dangerAfterLastCall": 3 },
+    "afterIdleFlush60": { "batchSize": 5, "earlyTriggers": false, "idleFlushSec": 60, "aiCalls": 116, "casesWithNoCall": 0, "leftoverMessages": 0, "dangerCases": 31, "dangerAfterLastCall": 0 },
+    "afterBatch3": { "batchSize": 3, "earlyTriggers": false, "aiCalls": 115, "casesWithNoCall": 1, "leftoverMessages": 36, "dangerCases": 31, "dangerAfterLastCall": 1 },
+    "cases": 65,
+    "otherMessages": 381
+  }
+}

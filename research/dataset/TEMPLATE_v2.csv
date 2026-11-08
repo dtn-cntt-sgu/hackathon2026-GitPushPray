@@ -1,0 +1,25 @@
+id,nhom,luat_ky_vong,loai,hoi_thoai,muc_A,muc_B,muc_chot,moc_muc,tin_nguy_hiem,giai_doan,bien_the,nguon,ghi_chu
+V2_JOB_001,8,urgent_relocation,scam,"DP: Chào em, chị thấy em đăng tìm việc làm thêm trong group sinh viên. Chị bên mảng tuyển dụng khách sạn nè
+TOI: Dạ em chào chị, bên chị tuyển vị trí gì vậy ạ?
+DP: Bên chị cần lễ tân với phục vụ nhà hàng, làm ca linh hoạt, hợp với sinh viên lắm
+TOI: Lương thế nào chị ơi, em mới năm 2 chưa có kinh nghiệm
+DP: Ko cần kinh nghiệm em, có đào tạo hết. Lương cứng 12tr chưa kể tip, bao ăn ở luôn
+TOI: Nghe cao vậy chị, khách sạn ở đâu ạ?
+DP: Khách sạn 5 sao bên Sihanoukville, người Việt làm đông lắm, chị gửi em ảnh mấy bạn đang làm nè [ảnh]
+TOI: Ở Campuchia hả chị? Em chưa đi nước ngoài bao giờ
+DP: Không sao, bên chị lo hết vé xe, có người đón tận nơi, em ko cần làm hộ chiếu đâu
+TOI: Để em hỏi bố mẹ đã nha chị
+DP: Em đừng nói với bố mẹ vội, người lớn hay lo xa rồi cản, mất cơ hội của em
+TOI: Dạ nhưng em vẫn hơi sợ
+DP: Chị nhận em thôi chứ suất cũng hết rồi, tối mai xe chạy, em quyết luôn trong hôm nay nha
+DP: Nhớ mang căn cước gốc theo để bên khách sạn làm thẻ nhân viên",nghiem_trong,nghiem_trong,nghiem_trong,2:thap;3:chu_y;5:cao;6:nghiem_trong;8:nghiem_trong,5,S4,nhieu_tin;teencode,tu_viet,Leo thang chậm: mồi lương cao → đi nước ngoài không hộ chiếu → giữ bí mật với bố mẹ → giữ giấy tờ gốc
+V2_BEN_001,0,none,benign_confusable,"DP: Ê mày, cuối tuần đi đá bóng không
+TOI: Đi chứ, mấy giờ
+DP: 7h sáng chủ nhật sân Phú Thọ nha, tiền sân chia đầu người 40k
+TOI: Ok
+DP: À mà tao hỏi cái, mày cho tao mượn tạm 300k được không, ví tao để quên ở nhà
+TOI: Mày gọi điện thoại cho tao cái, tao xác nhận đã
+DP: [cuộc gọi thoại 1 phút] Đó, tao nè, yên tâm chưa
+TOI: Rồi, gửi stk đi
+DP: 0071000123456 Vietcombank, Nguyễn Minh Tuấn, chiều tao trả liền
+DP: Cảm ơn mày nha, chủ nhật gặp",chu_y,thap,thap,2:thap;3:chu_y;5:thap;6:thap,,S0,nhieu_tin;teencode,tu_viet,Giống kịch bản mượn tiền gấp nhưng người dùng đã gọi điện xác minh → mức phải hạ về Thấp (đo chống dao động/hạ mức)

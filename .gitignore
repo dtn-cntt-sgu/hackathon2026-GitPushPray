@@ -1,0 +1,57 @@
+# Cài đặt và build
+node_modules/
+dist/
+# Bản build extension để cả nhóm nạp thẳng vào Chrome (Load unpacked) mà không cần build. Build lại rồi commit khi đổi code extension.
+!apps/extension/dist/
+.aws-sam/
+cdk.out/
+*.log
+.DS_Store
+Thumbs.db
+
+# Khóa và cấu hình cục bộ
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jks
+*.keystore
+credentials*.json
+
+# Công cụ cá nhân, chỉ nằm trên máy
+.claude/
+.codegraph/
+.cursor/
+CLAUDE.md
+PROGRESS.md
+
+# Tài liệu đánh giá nội bộ: chia sẻ qua kênh riêng của nhóm
+docs/noi-bo/
+
+# Dữ liệu nghiên cứu: không đưa lên repo public
+research/cache/
+research/data/
+research/results/
+research/reports/
+research/test.lock
+research/RUNS.md
+research/dataset/*
+!research/dataset/README*.md
+!research/dataset/TEMPLATE*.csv
+research/bo-kin/
+*.xlsx
+*.xls
+
+# Media và tệp lớn của nhóm
+*.mp4
+*.mov
+*.docx
+*.pptx
+*.pdf
+
+*.apk
+*.aab
+
+# Bundle gateway copy cho SAM
+infra/gateway-dist/

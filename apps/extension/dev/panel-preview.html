@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Xem trước SafeChat AI</title>
+    <link rel="stylesheet" href="../src/sidepanel/style.css" />
+    <style>
+      body {
+        max-width: 430px;
+        margin: 0 auto;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div>
+          <div class="name">SafeChat AI <span class="brand-badge">v2</span></div>
+          <div class="tagline">Bảo vệ bạn khỏi lừa đảo trực tuyến · Nhìn rõ trước khi tin</div>
+        </div>
+      </div>
+    </header>
+    <main id="app" aria-live="polite"></main>
+    <script type="module" src="./panel-preview.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "dataset": "set:v2",
+  "createdAt": "2026-11-07",
+  "all": {
+    "n": 105,
+    "agree": 94,
+    "agreeRate": 0.8952380952380953,
+    "kappa": 0.8418458167876216,
+    "goldEqualsA": 100,
+    "goldEqualsB": 91,
+    "bHeavierThanA": 11,
+    "aHeavierThanB": 0
+  },
+  "bySource": {
+    "chuyen_the": {
+      "n": 57,
+      "agree": 50,
+      "agreeRate": 0.8771929824561403,
+      "kappa": 0.7881040892193307,
+      "goldEqualsA": 52,
+      "goldEqualsB": 47,
+      "bHeavierThanA": 7,
+      "aHeavierThanB": 0
+    },
+    "ai_sinh_da_sua": {
+      "n": 12,
+      "agree": 11,
+      "agreeRate": 0.9166666666666666,
+      "kappa": 0,
+      "goldEqualsA": 12,
+      "goldEqualsB": 11,
+      "bHeavierThanA": 1,
+      "aHeavierThanB": 0
+    },
+    "tu_viet": {
+      "n": 36,
+      "agree": 33,
+      "agreeRate": 0.9166666666666666,
+      "kappa": 0,
+      "goldEqualsA": 36,
+      "goldEqualsB": 33,
+      "bHeavierThanA": 3,
+      "aHeavierThanB": 0
+    }
+  },
+  "scamOnly": {
+    "n": 53,
+    "agree": 48,
+    "agreeRate": 0.9056603773584906,
+    "kappa": 0.8204607046070462,
+    "goldEqualsA": 48,
+    "goldEqualsB": 45,
+    "bHeavierThanA": 5,
+    "aHeavierThanB": 0
+  },
+  "note": "Mốc theo từng tin chưa có người gán thứ hai độc lập. Dùng phiếu gán nhãn để đo."
+}

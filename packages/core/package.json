@@ -1,0 +1,12 @@
+{
+  "name": "@safechat/core",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "tldts": "7.4.19"
+  }
+}

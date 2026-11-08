@@ -1,0 +1,14 @@
+id,nhom,luat_ky_vong,loai,hoi_thoai,muc_A,muc_B,muc_chot,tin_nguy_hiem,giai_doan,bien_the,nguon,ghi_chu
+R04_001,3,R04,scam,"DP: Chào em, bên chị tuyển CTV làm nhiệm vụ chốt đơn tại nhà nha
+TOI: Dạ làm sao ạ
+DP: Đơn đầu 200k, hoàn gốc kèm 15% hoa hồng sau 5 phút
+DP: Đơn trước em ghi sai cú pháp nên hệ thống đóng băng rồi, em nạp thêm đơn combo 5 triệu để rút cả gốc lẫn lãi nhé",cao,nghiem_trong,nghiem_trong,3,S4,nhieu_tin,tu_viet,Ép nạp thêm để rút tiền bị đóng băng là bẫy giam tiền
+BEN_001,0,none,benign_confusable,"DP: Ê trưa nay tiền cơm tấm với trà sữa của mày hết 65k nha
+DP: ck vô stk 9988776655 của tao đi",thap,thap,thap,,S0,teencode,tu_viet,Chia tiền ăn giữa bạn bè số tiền nhỏ
+R01_001,1,R01,scam,"DP: Đây là cơ quan cảnh sát điều tra, anh liên quan đường dây rửa tiền
+TOI: Tôi không biết gì
+DP: Anh chuyển toàn bộ tiền vào tài khoản tạm giữ để chứng minh trong sạch. Bảo mật tuyệt đối, không được nói với ai",nghiem_trong,nghiem_trong,nghiem_trong,2,S3,nhieu_tin,ai_sinh_da_sua,Mạo danh cơ quan pháp luật đòi chuyển tiền và giữ bí mật
+R03_001,3,R03,scam,"DP: Bên mình tuyển cộng tác viên online, chỉ cần like video là có tiền
+DP: Mỗi lượt 10k, vào nhóm Telegram để nhận việc nha bạn",chu_y,chu_y,chu_y,,S2,co_link,tu_viet,Mồi việc nhẹ và rủ sang kênh kín nhưng chưa đòi tiền
+BEN_002,0,none,benign_confusable,"DP: Chào bạn, mình là HR Công ty TNHH Phần mềm Sao Mai
+DP: Mời bạn phỏng vấn trực tiếp tại văn phòng 9h thứ Hai, công ty không thu bất kỳ khoản phí nào",thap,thap,thap,,S0,,tu_viet,Tuyển dụng thật có pháp nhân và phỏng vấn tại văn phòng

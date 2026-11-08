@@ -1,0 +1,71 @@
+{
+  "id": "EXP-004",
+  "date": "2026-11-07",
+  "title": "Mô hình học từ dữ liệu, không dùng luật",
+  "hypothesis": "Đo xem học từ dữ liệu có tổng quát sang ca và kịch bản chưa thấy không. Dữ liệu ít nên có thể yếu, nhưng cho biết giới hạn của phương pháp này.",
+  "method": "ML ký tự TF-IDF + hồi quy logistic",
+  "rulesCommit": "2f0e1c7+dirty",
+  "dataset": "set:v2",
+  "splitSha256": "a2ac7dfce966d8d5ffd523f0cff96fc86a34237b1d2d7a774e0ed91efd67cb33",
+  "checkViewed": false,
+  "tune": {
+    "n": 65,
+    "accuracy": null,
+    "macroF1": null,
+    "dangerMiss": 0.06451612903225806,
+    "dangerMissCount": "2/31",
+    "criticalRecall": null,
+    "falseAlarm": null,
+    "falseAlarmHigh": 0.03125,
+    "falseAlarmHighCount": "1/32"
+  },
+  "tuneNote": "Số tune là kiểm định chéo theo nguồn, mô hình không thấy ca đang chấm",
+  "crossValidation": {
+    "repeats": 5,
+    "dangerMissMean": 0.1032258064516129,
+    "dangerMissMin": 0.06451612903225806,
+    "dangerMissMax": 0.12903225806451613,
+    "falseAlarmHighMean": 0.05625
+  },
+  "leaveOneScenarioOut": {
+    "1": {
+      "n": 3,
+      "caught": 3
+    },
+    "2": {
+      "n": 6,
+      "caught": 4
+    },
+    "3": {
+      "n": 8,
+      "caught": 5
+    },
+    "4": {
+      "n": 2,
+      "caught": 2
+    },
+    "5": {
+      "n": 2,
+      "caught": 1
+    },
+    "6": {
+      "n": 1,
+      "caught": 1
+    },
+    "7": {
+      "n": 3,
+      "caught": 2
+    },
+    "8": {
+      "n": 6,
+      "caught": 4
+    }
+  },
+  "check": null,
+  "sms": {
+    "benignHigh": 0.3829787234042553,
+    "scamHigh": 0.6610878661087866,
+    "n": 897,
+    "note": "Chỉ mô hình, chưa kết hợp luật"
+  }
+}

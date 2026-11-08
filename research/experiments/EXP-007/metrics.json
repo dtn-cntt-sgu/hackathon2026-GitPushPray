@@ -1,0 +1,95 @@
+{
+  "id": "EXP-007",
+  "date": "2026-11-07",
+  "title": "Mô hình học trên SMS thật, áp sang hội thoại",
+  "hypothesis": "SMS không có lỗi nhãn trùng nguồn như bộ v2, nên mô hình học trên SMS có thể phát hiện dấu hiệu thật. Rủi ro: SMS là tin lẻ, nhãn gộp cả quảng cáo, khác miền hội thoại.",
+  "method": "ML ký tự TF-IDF + hồi quy logistic, học trên SMS dev",
+  "rulesCommit": "ca76683",
+  "dataset": "ext:sms/dev để học, set:v2 tune để thử",
+  "splitSha256": "a2ac7dfce966d8d5ffd523f0cff96fc86a34237b1d2d7a774e0ed91efd67cb33",
+  "checkViewed": false,
+  "tune": {
+    "n": 65,
+    "accuracy": null,
+    "macroF1": null,
+    "dangerMiss": 0.0,
+    "dangerMissCount": "0/31",
+    "criticalRecall": null,
+    "falseAlarm": null,
+    "falseAlarmHigh": 1.0,
+    "falseAlarmHighCount": "32/32"
+  },
+  "tuneByThreshold": {
+    "0.5": {
+      "n": 65,
+      "accuracy": null,
+      "macroF1": null,
+      "dangerMiss": 0.0,
+      "dangerMissCount": "0/31",
+      "criticalRecall": null,
+      "falseAlarm": null,
+      "falseAlarmHigh": 1.0,
+      "falseAlarmHighCount": "32/32"
+    },
+    "0.6": {
+      "n": 65,
+      "accuracy": null,
+      "macroF1": null,
+      "dangerMiss": 0.0,
+      "dangerMissCount": "0/31",
+      "criticalRecall": null,
+      "falseAlarm": null,
+      "falseAlarmHigh": 1.0,
+      "falseAlarmHighCount": "32/32"
+    },
+    "0.7": {
+      "n": 65,
+      "accuracy": null,
+      "macroF1": null,
+      "dangerMiss": 0.0,
+      "dangerMissCount": "0/31",
+      "criticalRecall": null,
+      "falseAlarm": null,
+      "falseAlarmHigh": 0.875,
+      "falseAlarmHighCount": "28/32"
+    },
+    "0.8": {
+      "n": 65,
+      "accuracy": null,
+      "macroF1": null,
+      "dangerMiss": 0.22580645161290322,
+      "dangerMissCount": "7/31",
+      "criticalRecall": null,
+      "falseAlarm": null,
+      "falseAlarmHigh": 0.40625,
+      "falseAlarmHighCount": "13/32"
+    },
+    "0.9": {
+      "n": 65,
+      "accuracy": null,
+      "macroF1": null,
+      "dangerMiss": 0.9354838709677419,
+      "dangerMissCount": "29/31",
+      "criticalRecall": null,
+      "falseAlarm": null,
+      "falseAlarmHigh": 0.03125,
+      "falseAlarmHighCount": "1/32"
+    }
+  },
+  "probabilityMean": {
+    "danger": 0.8433585108317762,
+    "benign": 0.7761874097757901
+  },
+  "check": null,
+  "smsCrossValidation": {
+    "recall": 0.9623430962343096,
+    "falseAlarm": 0.057750759878419454,
+    "n": 897
+  },
+  "sms": {
+    "benignHigh": 0.057750759878419454,
+    "scamHigh": 0.9623430962343096,
+    "n": 897,
+    "note": "Kiểm định chéo trong SMS dev"
+  }
+}
